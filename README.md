@@ -6,6 +6,18 @@ A shell script to generate [lorem ipsum](https://en.wikipedia.org/wiki/Lorem_ips
 
 ```sh
 lipsum [-t] [-c] [-m|M|w|W|h|v]
+
+# Generate 10 characters
+lipsum -t characters -c 10
+
+# Generate 10 words
+lipsum -t words -c 10
+
+# Generate 10 sentences with 8 to 12 words
+lipsum -t sentences -c 10 -m 8 -M 12
+
+# Generate 10 paragraphs with 4 to 6 sentences that are 8 to 10 words
+lipsum -t paragraphs -c 10 -m 4 -M 6 -w 8 -W 10
 ```
 
 ### Options
@@ -40,22 +52,6 @@ lipsum [-t] [-c] [-m|M|w|W|h|v]
 | Paragraphs | `-M` | 10 |
 | Paragraphs | `-w` | 4 |
 | Paragraphs | `-W` | 8 |
-
-### Examples
-
-```sh
-# Generate 10 characters
-lipsum -t characters -c 10
-
-# Generate 10 words
-lipsum -t words -c 10
-
-# Generate 10 sentences with 8 to 12 words
-lipsum -t sentences -c 10 -m 8 -M 12
-
-# Generate 10 paragraphs with 4 to 6 sentences that are 8 to 10 words
-lipsum -t paragraphs -c 10 -m 4 -M 6 -w 8 -W 10
-```
 
 ## License
 
