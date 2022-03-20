@@ -1,12 +1,14 @@
 #!/bin/sh
-
-word_pool=('ad' 'adipiscing' 'aliqua' 'aliquip' 'amet' 'anim' 'aute' 'cillum' 'commodo'
-         'consectetur' 'consequat' 'culpa' 'cupidatat' 'deserunt' 'do' 'dolor' 'dolore'
-         'duis' 'ea' 'eiusmod' 'elit' 'enim' 'esse' 'est' 'et' 'eu' 'ex' 'excepteur'
-         'exercitation' 'fugiat' 'id' 'in' 'incididunt' 'ipsum' 'irure' 'labore' 'laboris'
-         'laborum' 'lorem' 'magna' 'minim' 'mollit' 'nisi' 'non' 'nostrud' 'nulla'
-         'occaecat' 'officia' 'pariatur' 'proident' 'qui' 'quis' 'reprehenderit' 'sed'
-         'sint' 'sit' 'sunt' 'tempor' 'ullamco' 'ut' 'velit' 'veniam' 'voluptate')
+version="0.0.0"
+word_pool=("ad" "adipiscing" "aliqua" "aliquip" "amet" "anim" "aute" "cillum" "commodo"
+         "consectetur" "consequat" "culpa" "cupidatat" "deserunt" "do" "dolor" "dolore"
+         "duis" "ea" "eiusmod" "elit" "enim" "esse" "est" "et" "eu" "ex" "excepteur"
+         "exercitation" "fugiat" "id" "in" "incididunt" "ipsum" "irure" "labore" "laboris"
+         "laborum" "lorem" "magna" "minim" "mollit" "nisi" "non" "nostrud" "nulla"
+         "occaecat" "officia" "pariatur" "proident" "qui" "quis" "reprehenderit" "sed"
+         "sint" "sit" "sunt" "tempor" "ullamco" "ut" "velit" "veniam" "voluptate")
+default_min_words=4
+default_max_words=8
          
 # Generate a series of characters
 #
@@ -56,8 +58,8 @@ generate_sentences() {
   local i count min max len placement sentence sentences
 
   count=$1
-  min=${2:-4}
-  max=${3:-8}
+  min=${2:-$default_min_words}
+  max=${3:-$default_max_words}
 
   for ((i=0; i<$count; i++))
   do
@@ -66,9 +68,9 @@ generate_sentences() {
     sentence=$(capitalize "$sentence")
 
     # Randomly distribute commas throughout the sentences
-    if [ $(( RANDOM % 2)) = 1 ]; then
+    if [ $len -gt 1 -a $(( RANDOM % 2 )) = 1 ]; then
       placement=$(( RANDOM % ($len - 1) + 1 ))
-      sentence=$(sed 's/ /, /'$placement <<<$sentence)
+      sentence=$(sed "s/ /, /"$placement <<<$sentence)
     fi
 
     sentences+=($sentence.)
@@ -79,30 +81,30 @@ generate_sentences() {
 
 # Generate a series of paragraphs
 #
-# @param  int $count          Number of paragraphs to generate
-# @param  int $min            Minimum number of sentences per paragraph (default: 5)
-# @param  int $max            Maximum number of sentences per paragraph (default: 10)
-# @param  int $sentence_min   Minimum number of words per sentence (default: 4)
-# @param  int $sentence_max   Maximum number of words per sentence (default: 8)
+# @param  int $count        Number of paragraphs to generate
+# @param  int $min          Minimum number of sentences per paragraph (default: 5)
+# @param  int $max          Maximum number of sentences per paragraph (default: 10)
+# @param  int $min_words    Minimum number of words per sentence (default: 4)
+# @param  int $max_words    Maximum number of words per sentence (default: 8)
 # @return string
 generate_paragraphs() {
-  local i count min max len sentence_min sentence_max paragraph paragraphs
+  local i count min max len min_words max_words paragraph paragraphs
 
   count=$1
   min=${2:-5}
   max=${3:-10}
-  sentence_min=${4:-4}
-  sentence_max=${5:-8}
+  min_words=${4:-$default_min_words}
+  max_words=${5:-$default_max_words}
 
   for ((i=0; i<$count; i++))
   do
     len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
-    paragraph=$(generate_sentences $len $sentence_min $sentence_max)
+    paragraph=$(generate_sentences $len $min_words $max_words)
     paragraphs+=$paragraph
 
     # Add linebreaks
     if [ ! $i = $(( $count - 1 )) ]; then
-      paragraphs+='\n\n'
+      paragraphs+="\n\n"
     fi
   done
 
@@ -118,7 +120,46 @@ capitalize() {
 
   string=$1
 
-  echo $(tr '[:lower:]' '[:upper:]' <<< ${string:0:1})${string:1}
+  echo $(tr "[:lower:]" "[:upper:]" <<< ${string:0:1})${string:1}
 }
 
-generate_sentences 100
+show_help() {
+  echo "help"
+}
+
+show_version() {
+  printf "lipsum $version"
+}
+
+while getopts t:c:m:M:w:W:hv option
+do
+  case $option in
+    t) type=${OPTARG};;
+    c) count=${OPTARG};;
+    m) min=${OPTARG};;
+    M) max=${OPTARG};;
+    w) min_words=${OPTARG};;
+    W) max_words=${OPTARG};;
+    h) show_help;;
+    v) show_version;;
+    *)
+        echo "Incorrect options provided"
+        exit 1
+        ;;
+  esac
+done
+
+case $type in
+  characters|character|char|c)
+    printf "$(capitalize "$(generate_characters $count)")"
+    ;;
+  words|word|w)
+    printf "$(capitalize "$(generate_words $count)")"
+    ;;
+  sentences|sentence|sent|s)
+    printf "$(generate_sentences $count $min $max)"
+    ;;
+  paragraphs|paragraph|para|p)
+    printf "$(generate_paragraphs $count $min $max $min_words $max_words)"
+    ;;
+esac
