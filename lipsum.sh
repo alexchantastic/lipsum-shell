@@ -1,5 +1,5 @@
 #!/bin/sh
-version="0.0.0"
+version="1.0.0"
 word_pool=("ad" "adipiscing" "aliqua" "aliquip" "amet" "anim" "aute" "cillum" "commodo"
          "consectetur" "consequat" "culpa" "cupidatat" "deserunt" "do" "dolor" "dolore"
          "duis" "ea" "eiusmod" "elit" "enim" "esse" "est" "et" "eu" "ex" "excepteur"
