@@ -47,6 +47,7 @@ generate_sentences() {
   do
     len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
     sentence=$(generate_words $len)
+    sentence=$(capitalize "$sentence")
 
     if [ $(( RANDOM % 2)) = 1 ]; then
       placement=$(( RANDOM % ($len - 1) + 1 ))
@@ -80,4 +81,12 @@ generate_paragraphs() {
   done
 }
 
-generate_paragraphs 5 6 10 4 8
+capitalize() {
+  local string
+
+  string=$1
+
+  echo $(tr '[:lower:]' '[:upper:]' <<< ${string:0:1})${string:1}
+}
+
+capitalize "$(generate_characters 10)"
