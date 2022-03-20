@@ -12,7 +12,7 @@ lipsum [-t] [-c] [-m|M|w|W|h|v]
 
 | Name | Description |
 | --- | --- |
-| `t` | Type of text structure to generate (characters|words|sentences|paragraphs) |
+| `t` | Type of text structure to generate (`characters`, `words`, `sentences`, or `paragraphs`) |
 | `c` | Number of structures to generate |
 | `m` | Minimum number of structures to generate (applies to sentence and paragraph only) |
 | `M` | Maximum number of structures to generate (applies sentence and paragraph only) |
