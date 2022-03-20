@@ -119,7 +119,6 @@ capitalize() {
   local string first_letter ord
 
   string=$1
-
   first_letter=${string:0:1}
 
   if [[ ${first_letter} == [a-z] ]]; then
@@ -168,9 +167,9 @@ do
     h) show_help;;
     v) show_version;;
     *)
-        echo "Incorrect options provided"
-        exit 1
-        ;;
+      echo "Incorrect options provided"
+      exit 1
+      ;;
   esac
 done
 
