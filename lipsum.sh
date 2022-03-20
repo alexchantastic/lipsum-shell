@@ -22,13 +22,13 @@ generate_characters() {
 }
 
 generate_words() {
-  local i size rand word words
+  local i count rand word words
 
-  size=${#word_pool[*]}
+  count=$1
 
-  for ((i=0; i<$1; i++))
+  for ((i=0; i<$count; i++))
   do
-    rand=$(( RANDOM % $size ))
+    rand=$(( RANDOM % ${#word_pool[*]} ))
     word=${word_pool[$rand]}
     words+=($word)
   done
@@ -36,4 +36,27 @@ generate_words() {
   echo ${words[@]}
 }
 
-generate_characters 10
+generate_sentences() {
+  local i count min max len placement sentence sentences
+
+  count=$1
+  min=$2
+  max=$3
+
+  for ((i=0; i<$count; i++))
+  do
+    len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
+    sentence=$(generate_words $len)
+
+    if [ $(( RANDOM % 2)) = 1 ]; then
+      placement=$(( RANDOM % ($len - 1) + 1 ))
+      sentence=$(sed 's/ /, /'$placement <<<$sentence)
+    fi
+
+    sentences+=($sentence.)
+  done
+
+  echo ${sentences[@]}
+}
+
+generate_sentences 5 4 8
