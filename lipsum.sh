@@ -86,7 +86,7 @@ generate_sentences() {
 # @param  int $sentence_max   Maximum number of words per sentence (default: 8)
 # @return string
 generate_paragraphs() {
-  local i count min max len sentence_min sentence_max paragraph
+  local i count min max len sentence_min sentence_max paragraph paragraphs
 
   count=$1
   min=${2:-5}
@@ -98,13 +98,15 @@ generate_paragraphs() {
   do
     len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
     paragraph=$(generate_sentences $len $sentence_min $sentence_max)
-    echo $paragraph
+    paragraphs+=$paragraph
 
-    # Add linebreak
+    # Add linebreaks
     if [ ! $i = $(( $count - 1 )) ]; then
-      echo ""
+      paragraphs+='\n\n'
     fi
   done
+
+  echo ${paragraphs[@]}
 }
 
 # Capitalize the first letter in a string
@@ -119,4 +121,4 @@ capitalize() {
   echo $(tr '[:lower:]' '[:upper:]' <<< ${string:0:1})${string:1}
 }
 
-generate_paragraphs 3
+generate_sentences 100
