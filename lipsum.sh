@@ -116,13 +116,24 @@ generate_paragraphs() {
 # @param  string $string    String to capitalize
 # @return string
 capitalize() {
-  local string
+  local string first_letter ord
 
   string=$1
 
-  echo $(tr "[:lower:]" "[:upper:]" <<< ${string:0:1})${string:1}
+  first_letter=${string:0:1}
+
+  if [[ ${first_letter} == [a-z] ]]; then
+    ord=$(printf '%o' "'${first_letter}")
+    ord=$(( ord - 40 ))
+    first_letter=$(printf '%b' '\'${ord})
+  fi
+
+  echo "${first_letter}${string:1}"
 }
 
+# Show help information
+#
+# @return string
 show_help() {
   echo "Generates lorem ipsum dummy text"
   echo
@@ -138,6 +149,9 @@ show_help() {
   echo "  h    Print help"
 }
 
+# Show version information
+#
+# @return string
 show_version() {
   echo "lipsum $version"
 }
