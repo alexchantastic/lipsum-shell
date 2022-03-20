@@ -9,6 +9,8 @@ word_pool=("ad" "adipiscing" "aliqua" "aliquip" "amet" "anim" "aute" "cillum" "c
          "sint" "sit" "sunt" "tempor" "ullamco" "ut" "velit" "veniam" "voluptate")
 default_min_words=4
 default_max_words=8
+default_min_sentences=5
+default_max_sentences=10
          
 # Generate a series of characters
 #
@@ -91,8 +93,8 @@ generate_paragraphs() {
   local i count min max len min_words max_words paragraph paragraphs
 
   count=$1
-  min=${2:-5}
-  max=${3:-10}
+  min=${2:-$default_min_sentences}
+  max=${3:-$default_max_sentences}
   min_words=${4:-$default_min_words}
   max_words=${5:-$default_max_words}
 
