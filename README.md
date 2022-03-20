@@ -20,3 +20,7 @@ lipsum [-t] [-c] [-m|M|w|W|h|v]
 | `W` | Maximum number of sentences words to generate (applies to paragraph only) |
 | `v` | Print the software version |
 | `h` | Print help |
+
+## License
+
+Code released under the [MIT License](https://github.com/alexchantastic/lipsum-shell/blob/master/LICENSE).
