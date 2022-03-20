@@ -48,16 +48,16 @@ generate_words() {
 
 # Generate a series of sentences
 #
-# @param  int $count  Number of sentences to generate
-# @param  int $min    Minimum number of words per sentence
-# @param  int $max    Maximum number of words per sentence
+# @param  int $count    Number of sentences to generate
+# @param  int $min      Minimum number of words per sentence (default: 4)
+# @param  int $max      Maximum number of words per sentence (default: 8)
 # @return string
 generate_sentences() {
   local i count min max len placement sentence sentences
 
   count=$1
-  min=$2
-  max=$3
+  min=${2:-4}
+  max=${3:-8}
 
   for ((i=0; i<$count; i++))
   do
@@ -80,19 +80,19 @@ generate_sentences() {
 # Generate a series of paragraphs
 #
 # @param  int $count          Number of paragraphs to generate
-# @param  int $min            Minimum number of sentences per paragraph
-# @param  int $max            Maximum number of sentences per paragraph
-# @param  int $sentence_min   Minimum number of words per sentence
-# @param  int $sentence_max   Maximum number of words per sentence
+# @param  int $min            Minimum number of sentences per paragraph (default: 5)
+# @param  int $max            Maximum number of sentences per paragraph (default: 10)
+# @param  int $sentence_min   Minimum number of words per sentence (default: 4)
+# @param  int $sentence_max   Maximum number of words per sentence (default: 8)
 # @return string
 generate_paragraphs() {
   local i count min max len sentence_min sentence_max paragraph
 
   count=$1
-  min=$2
-  max=$3
-  sentence_min=$4
-  sentence_max=$5
+  min=${2:-5}
+  max=${3:-10}
+  sentence_min=${4:-4}
+  sentence_max=${5:-8}
 
   for ((i=0; i<$count; i++))
   do
@@ -109,7 +109,7 @@ generate_paragraphs() {
 
 # Capitalize the first letter in a string
 #
-# @param  string $string  String to capitalize
+# @param  string $string    String to capitalize
 # @return string
 capitalize() {
   local string
@@ -119,4 +119,4 @@ capitalize() {
   echo $(tr '[:lower:]' '[:upper:]' <<< ${string:0:1})${string:1}
 }
 
-capitalize "$(generate_characters 10)"
+generate_paragraphs 3
