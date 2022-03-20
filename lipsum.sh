@@ -139,14 +139,14 @@ show_help() {
   echo
   echo "Usage: lipsum [-t] [-c] [-m|M|w|W|h|v]"
   echo "options:"
-  echo "  t    Type of text structure to generate (characters|words|sentences|paragraphs)"
-  echo "  c    Number of structures to generate"
-  echo "  m    Minimum number of structures to generate (applies to sentence and paragraph only)"
-  echo "  M    Maximum number of structures to generate (applies sentence and paragraph only)"
-  echo "  w    Minimum number of sentence words to generate (applies to paragraph only)"
-  echo "  W    Maximum number of sentences words to generate (applies to paragraph only)"
-  echo "  v    Print the software version"
-  echo "  h    Print help"
+  echo "  -t    Type of text structure to generate (characters|words|sentences|paragraphs)"
+  echo "  -c    Number of structures to generate"
+  echo "  -m    Minimum number of structures to generate (applies to sentence and paragraph only)"
+  echo "  -M    Maximum number of structures to generate (applies sentence and paragraph only)"
+  echo "  -w    Minimum number of sentence words to generate (applies to paragraph only)"
+  echo "  -W    Maximum number of sentences words to generate (applies to paragraph only)"
+  echo "  -v    Print the software version"
+  echo "  -h    Print help"
 }
 
 # Show version information
