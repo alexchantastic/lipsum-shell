@@ -8,6 +8,19 @@ word_pool=('ad' 'adipiscing' 'aliqua' 'aliquip' 'amet' 'anim' 'aute' 'cillum' 'c
          'occaecat' 'officia' 'pariatur' 'proident' 'qui' 'quis' 'reprehenderit' 'sed'
          'sint' 'sit' 'sunt' 'tempor' 'ullamco' 'ut' 'velit' 'veniam' 'voluptate')
 
+generate_characters() {
+  local word words characters
+
+  while [ ${#characters} -lt $1 ]
+  do
+    word=$(generate_words 1)
+    words+=($word)
+    characters=${words[@]}
+  done
+
+  echo ${characters:0:$1}
+}
+
 generate_words() {
   local i size rand word words
 
@@ -23,4 +36,4 @@ generate_words() {
   echo ${words[@]}
 }
 
-generate_words 5
+generate_characters 10
