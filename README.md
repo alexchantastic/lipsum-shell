@@ -2,6 +2,20 @@
 
 A shell script to generate [lorem ipsum](https://en.wikipedia.org/wiki/Lorem_ipsum) dummy text.
 
+## Installation
+
+1. Clone or download the repo
+2. Create a symlink from the script to your `/usr/local/bin` folder
+   ```sh
+   ln -s $PATH_TO_REPO/lipsum.sh /usr/local/bin/lipsum
+   ```
+
+Or run the script directly:
+
+```sh
+sh lipsum.sh
+```
+
 ## Usage
 
 ```sh
