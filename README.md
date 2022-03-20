@@ -25,7 +25,7 @@ lipsum [-t] [-c] [-m|M|w|W|h|v]
 
 | Type | Keywords |
 | --- | --- |
-| Characters | `characters`, `character`, `chars`, `c` |
+| Characters | `characters`, `character`, `char`, `c` |
 | Words | `words`, `word`, `w` |
 | Sentences | `sentences`, `sentence`, `sent`, `s` |
 | Paragraphs | `paragraphs`, `paragraph`, `para`, `p` |
