@@ -59,4 +59,25 @@ generate_sentences() {
   echo ${sentences[@]}
 }
 
-generate_sentences 5 4 8
+generate_paragraphs() {
+  local i count min max len sentence_min sentence_max paragraph
+
+  count=$1
+  min=$2
+  max=$3
+  sentence_min=$4
+  sentence_max=$5
+
+  for ((i=0; i<$count; i++))
+  do
+    len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
+    paragraph=$(generate_sentences $len $sentence_min $sentence_max)
+    echo $paragraph
+
+    if [ ! $i = $(( $count - 1 )) ]; then
+      echo ""
+    fi
+  done
+}
+
+generate_paragraphs 5 6 10 4 8
