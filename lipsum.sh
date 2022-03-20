@@ -7,20 +7,30 @@ word_pool=('ad' 'adipiscing' 'aliqua' 'aliquip' 'amet' 'anim' 'aute' 'cillum' 'c
          'laborum' 'lorem' 'magna' 'minim' 'mollit' 'nisi' 'non' 'nostrud' 'nulla'
          'occaecat' 'officia' 'pariatur' 'proident' 'qui' 'quis' 'reprehenderit' 'sed'
          'sint' 'sit' 'sunt' 'tempor' 'ullamco' 'ut' 'velit' 'veniam' 'voluptate')
-
+         
+# Generate a series of characters
+#
+# @param  int $count  Number of characters to generate
+# @return string
 generate_characters() {
-  local word words characters
+  local count word words characters
 
-  while [ ${#characters} -lt $1 ]
+  count=$1
+
+  while [ ${#characters} -lt $count ]
   do
     word=$(generate_words 1)
     words+=($word)
     characters=${words[@]}
   done
 
-  echo ${characters:0:$1}
+  echo ${characters:0:$count}
 }
 
+# Generate a series of words
+#
+# @param  int $count  Number of words to generate
+# @return string
 generate_words() {
   local i count rand word words
 
@@ -36,6 +46,12 @@ generate_words() {
   echo ${words[@]}
 }
 
+# Generate a series of sentences
+#
+# @param  int $count  Number of sentences to generate
+# @param  int $min    Minimum number of words per sentence
+# @param  int $max    Maximum number of words per sentence
+# @return string
 generate_sentences() {
   local i count min max len placement sentence sentences
 
@@ -49,6 +65,7 @@ generate_sentences() {
     sentence=$(generate_words $len)
     sentence=$(capitalize "$sentence")
 
+    # Randomly distribute commas throughout the sentences
     if [ $(( RANDOM % 2)) = 1 ]; then
       placement=$(( RANDOM % ($len - 1) + 1 ))
       sentence=$(sed 's/ /, /'$placement <<<$sentence)
@@ -60,6 +77,14 @@ generate_sentences() {
   echo ${sentences[@]}
 }
 
+# Generate a series of paragraphs
+#
+# @param  int $count          Number of paragraphs to generate
+# @param  int $min            Minimum number of sentences per paragraph
+# @param  int $max            Maximum number of sentences per paragraph
+# @param  int $sentence_min   Minimum number of words per sentence
+# @param  int $sentence_max   Maximum number of words per sentence
+# @return string
 generate_paragraphs() {
   local i count min max len sentence_min sentence_max paragraph
 
@@ -75,12 +100,17 @@ generate_paragraphs() {
     paragraph=$(generate_sentences $len $sentence_min $sentence_max)
     echo $paragraph
 
+    # Add linebreak
     if [ ! $i = $(( $count - 1 )) ]; then
       echo ""
     fi
   done
 }
 
+# Capitalize the first letter in a string
+#
+# @param  string $string  String to capitalize
+# @return string
 capitalize() {
   local string
 
