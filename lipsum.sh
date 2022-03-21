@@ -1,4 +1,30 @@
 #!/bin/sh
+
+# lipsum-shell
+# https://github.com/alexchantastic/lipsum-shell
+
+# MIT License
+#
+# Copyright (c) 2022 Alex Chan
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 version="1.0.0"
 word_pool=("ad" "adipiscing" "aliqua" "aliquip" "amet" "anim" "aute" "cillum" "commodo"
          "consectetur" "consequat" "culpa" "cupidatat" "deserunt" "do" "dolor" "dolore"
@@ -70,7 +96,7 @@ generate_sentences() {
     sentence=$(capitalize "$sentence")
 
     # Randomly distribute commas throughout the sentences
-    if [ $len -gt 1 -a $(( RANDOM % 2 )) = 1 ]; then
+    if [[ $len > 1 && $(( RANDOM % 2 )) = 1 ]]; then
       placement=$(( RANDOM % ($len - 1) + 1 ))
       sentence=$(sed "s/ /, /"$placement <<<$sentence)
     fi
@@ -100,7 +126,7 @@ generate_paragraphs() {
 
   for ((i=0; i<$count; i++))
   do
-    len=$(( RANDOM % (${max} - ${min} + 1 ) + ${min} ))
+    len=$(( RANDOM % (${max} - ${min} + 1) + ${min} ))
     paragraph=$(generate_sentences $len $min_words $max_words)
     paragraphs+=$paragraph
 
@@ -139,15 +165,17 @@ show_help() {
   echo "Generates lorem ipsum dummy text"
   echo
   echo "Usage: lipsum [-t] [-c] [-m|M|w|W|h|v]"
-  echo "options:"
+  echo "Options:"
   echo "  -t    Type of text structure to generate (characters|words|sentences|paragraphs)"
   echo "  -c    Number of structures to generate"
   echo "  -m    Minimum number of structures to generate (applies to sentence and paragraph only)"
   echo "  -M    Maximum number of structures to generate (applies to sentence and paragraph only)"
   echo "  -w    Minimum number of words to generate per sentence (applies to paragraph only)"
   echo "  -W    Maximum number of words to generate per sentence (applies to paragraph only)"
-  echo "  -v    Print the software version"
+  echo "  -v    Print version"
   echo "  -h    Print help"
+
+  exit 0
 }
 
 # Show version information
@@ -155,6 +183,8 @@ show_help() {
 # @return string
 show_version() {
   echo "lipsum $version"
+
+  exit 0
 }
 
 while getopts t:c:m:M:w:W:hv option
@@ -168,10 +198,7 @@ do
     W) max_words=${OPTARG};;
     h) show_help;;
     v) show_version;;
-    *)
-      echo "Incorrect options provided"
-      exit 1
-      ;;
+    *) exit 1;;
   esac
 done
 

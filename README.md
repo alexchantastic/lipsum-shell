@@ -44,7 +44,7 @@ lipsum -t paragraphs -c 10 -m 4 -M 6 -w 8 -W 10
 | `-M` | Maximum number of structures to generate (applies to sentence and paragraph only) |
 | `-w` | Minimum number of words to generate per sentence (applies to paragraph only) |
 | `-W` | Maximum number of words to generate per sentence (applies to paragraph only) |
-| `-v` | Print the software version |
+| `-v` | Print version |
 | `-h` | Print help |
 
 #### Type Keywords
