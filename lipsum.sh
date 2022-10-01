@@ -232,6 +232,4 @@ case $type in
   version)
     show_version
     ;;
-  *)
-    exit 1;;
 esac
