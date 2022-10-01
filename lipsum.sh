@@ -190,8 +190,6 @@ show_version() {
 while getopts t:c:m:M:w:W:hv option
 do
   case $option in
-    t) type=${OPTARG};;
-    c) count=${OPTARG};;
     m) min=${OPTARG};;
     M) max=${OPTARG};;
     w) min_words=${OPTARG};;
@@ -201,6 +199,9 @@ do
     *) exit 1;;
   esac
 done
+
+type=$1
+count=$2
 
 case $type in
   characters|character|char|c)
@@ -214,5 +215,11 @@ case $type in
     ;;
   paragraphs|paragraph|para|p)
     printf "$(generate_paragraphs $count $min $max $min_words $max_words)"
+    ;;
+  help)
+    show_help
+    ;;
+  version)
+    show_version
     ;;
 esac
