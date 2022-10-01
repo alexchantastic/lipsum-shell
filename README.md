@@ -52,6 +52,12 @@ Structure commands also have the following aliases:
 | Sentences | `sentences`, `sentence`, `sent`, `s` |
 | Paragraphs | `paragraphs`, `paragraph`, `para`, `p` |
 
+### Arguments
+
+| Argument | Description | Default |
+| --- | --- | --- |
+| `count` | Number of structures to generate | `1` |
+
 ### Options
 
 | Name | Description |

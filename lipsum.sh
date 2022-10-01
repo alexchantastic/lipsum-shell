@@ -176,7 +176,7 @@ show_help() {
   echo "  version       Show version"
   echo
   echo "Arguments:"
-  echo "  count    Number of structures to generate"
+  echo "  count    Number of structures to generate (defaults to 1)"
   echo
   echo "Options:"
   echo "  -m    Minimum number of structures to generate (applies to sentence and paragraph only)"
