@@ -42,6 +42,8 @@ lipsum paragraphs 10 -m 4 -M 6 -w 8 -W 10
 | `words` | Generated words |
 | `sentences` | Generate sentences |
 | `paragraphs` | Generate paragraphs |
+| `help` | Show help |
+| `version` | Show version |
 
 Structure commands also have the following aliases:
 
