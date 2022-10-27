@@ -164,10 +164,20 @@ capitalize() {
 show_help() {
   echo "Generates lorem ipsum dummy text"
   echo
-  echo "Usage: lipsum [-t] [-c] [-m|M|w|W|h|v]"
+  echo "Usage: lipsum <command> [count] [-m|M|w|W|h|v]"
+  echo
+  echo "Commands:"
+  echo "  characters    Generate characters"
+  echo "  words         Generate words"
+  echo "  sentences     Generate sentences"
+  echo "  paragraphs    Generate paragraphs"
+  echo "  help          Show help"
+  echo "  version       Show version"
+  echo
+  echo "Arguments:"
+  echo "  count    Number of structures to generate"
+  echo
   echo "Options:"
-  echo "  -t    Type of text structure to generate (characters|words|sentences|paragraphs)"
-  echo "  -c    Number of structures to generate"
   echo "  -m    Minimum number of structures to generate (applies to sentence and paragraph only)"
   echo "  -M    Maximum number of structures to generate (applies to sentence and paragraph only)"
   echo "  -w    Minimum number of words to generate per sentence (applies to paragraph only)"
@@ -190,8 +200,6 @@ show_version() {
 while getopts t:c:m:M:w:W:hv option
 do
   case $option in
-    t) type=${OPTARG};;
-    c) count=${OPTARG};;
     m) min=${OPTARG};;
     M) max=${OPTARG};;
     w) min_words=${OPTARG};;
@@ -201,6 +209,9 @@ do
     *) exit 1;;
   esac
 done
+
+type=$1
+count=$2
 
 case $type in
   characters|character|char|c)
@@ -215,4 +226,12 @@ case $type in
   paragraphs|paragraph|para|p)
     printf "$(generate_paragraphs $count $min $max $min_words $max_words)"
     ;;
+  help)
+    show_help
+    ;;
+  version)
+    show_version
+    ;;
+  *)
+    exit 1;;
 esac
