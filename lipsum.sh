@@ -33,6 +33,7 @@ word_pool=("ad" "adipiscing" "aliqua" "aliquip" "amet" "anim" "aute" "cillum" "c
          "laborum" "lorem" "magna" "minim" "mollit" "nisi" "non" "nostrud" "nulla"
          "occaecat" "officia" "pariatur" "proident" "qui" "quis" "reprehenderit" "sed"
          "sint" "sit" "sunt" "tempor" "ullamco" "ut" "velit" "veniam" "voluptate")
+default_count=1
 default_min_words=4
 default_max_words=8
 default_min_sentences=5
@@ -175,7 +176,7 @@ show_help() {
   echo "  version       Show version"
   echo
   echo "Arguments:"
-  echo "  count    Number of structures to generate"
+  echo "  count    Number of structures to generate (defaults to 1)"
   echo
   echo "Options:"
   echo "  -m    Minimum number of structures to generate (applies to sentence and paragraph only)"
@@ -211,7 +212,7 @@ do
 done
 
 type=$1
-count=$2
+count="${2:-$default_count}"
 
 case $type in
   characters|character|char|c)
